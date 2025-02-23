@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vending Machine Items</title>
+    <script src="js/item.js"></script>
+</head>
+
+<body onload="loadItemData()">
+    <h2>Items in Vending Machine</h2>
+    <p id="vendingMachineInfo"></p>
+    <div id="dynamicItemDetails"></div>
+
+    <script>
+        function loadItemData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const vendingMachineId = urlParams.get('vending_machine_id');
+
+            if (!vendingMachineId) {
+                alert("Error: No vending machine selected.");
+                return;
+            }
+
+            // Fetch vending machine info (Optional: Display machine details)
+            fetch(`/vending_machine/${vendingMachineId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        document.getElementById("vendingMachineInfo").innerText = "Vending Machine Not Found!";
+                        return;
+                    }
+                    const vendingMachine = data[0];
+                    document.getElementById("vendingMachineInfo").innerText =
+                        `Vending Machine ID: ${vendingMachine.vending_machine_id} - Location: ${vendingMachine.school}, Block ${vendingMachine.block}, Floor ${vendingMachine.floor}`;
+                })
+                .catch(error => console.error('Error fetching vending machine details:', error));
+
+            // Fetch items specific to this vending machine
+            fetch(`/item?vending_machine_id=${vendingMachineId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const itemList = document.getElementById("dynamicItemDetails");
+                    itemList.innerHTML = "";
+
+                    if (data.length === 0) {
+                        itemList.innerHTML = "<p>No items found for this vending machine.</p>";
+                        return;
+                    }
+
+                    let newContent = "<table><tr>";
+                    data.forEach((item, index) => {
+                        newContent += `
+                            <td>
+                                <h4>${item.item_name}</h4>
+                                <img src='images/${item.item_image}' width='100'><br>
+                                <strong>Cost:</strong> $${item.item_cost}<br>
+                                <strong>Availability:</strong> ${item.availability ? "Available" : "Out of Stock"}<br>
+                                <strong>Quantity:</strong> ${item.item_quantity}<br>
+                                <button onclick='editItem(${item.item_id})'>Edit</button>
+                                <button onclick='deleteItem(${item.item_id})'>Delete</button>
+                            </td>
+                        `;
+                        if ((index + 1) % 3 === 0 && index < data.length - 1) {
+                            newContent += "</tr><tr>";
+                        }
+                    });
+                    newContent += "</tr></table>";
+                    itemList.innerHTML = newContent;
+                })
+                .catch(error => console.error('Error fetching items:', error));
+        }
+
+        function editItem(itemId) {
+            location.href = `/update_item.html?id=${itemId}`;
+        }
+
+        function deleteItem(itemId) {
+            if (!confirm("Are you sure you want to delete this item?")) return;
+            fetch(`/item/${itemId}`, { method: 'DELETE' })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to delete item.");
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function loadItemData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const vendingMachineId = urlParams.get('vending_machine_id');
+
+            if (!vendingMachineId) {
+                alert("Error: No vending machine selected.");
+                return;
+            }
+
+            fetch(`/item?vending_machine_id=${vendingMachineId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error fetching items: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data || data.length === 0) {
+                        document.getElementById("dynamicItemDetails").innerHTML = "<p>No items found.</p>";
+                        return;
+                    }
+                    insertDynamicItems(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching items:', error);
+                    alert("Failed to load items.");
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Update Item</title>
+    <script src="./js/item.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="loadUpdateItemDetails()">
+    <h2>Update Item</h2>
+    <form id="updateItemForm" method="post" onsubmit="updateItemData(); return false">
+        <label for="item_id">ID:</label><br>
+        <input type="text" id="item_id" name="item_id" readonly><br>
+
+        <label for="item_name">Name:</label><br>
+        <input type="text" id="item_name" name="item_name" maxlength="100" required><br>
+
+        <label for="item_cost">Item Cost:</label><br>
+        <input type="number" id="item_cost" name="item_cost" step="0.01" min="0" max="5"><br>
+
+        <label for="item_image">Image URL:</label><br>
+        <input type="text" id="item_image" name="item_image" maxlength="100" required><br>
+
+        <label for="availability">Availability:</label><br>
+        <input type="number" id="availability" name="availability" min="0" max="1"><br>
+
+        <label for="item_quantity">Item Quantity:</label><br>
+        <input type="number" id="item_quantity" name="item_quantity" min="0" max="100"><br>
+
+        <button type="submit">Update Item</button>
+    </form>
+</body>
+
+</html>

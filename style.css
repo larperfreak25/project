@@ -1,0 +1,109 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Comic Neue', cursive;
+    background-color: #f0e6f6;
+    color: #4a4a4a;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #ff9aa2;
+    color: #4a4a4a;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    border-bottom: 4px solid #b5ead7;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+    text-shadow: 2px 2px #a2d5f2;
+}
+
+/* Navigation Styles */
+nav {
+    background-color: #b5ead7;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+}
+
+nav a {
+    color: #4a4a4a;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #ff9aa2;
+    text-decoration: underline;
+}
+
+/* Back to Home Link */
+.back-to-home {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #a2d5f2;
+    color: #4a4a4a;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    text-shadow: 1px 1px #f0e6f6;
+}
+
+.back-to-home:hover {
+    background-color: #ffdac1;
+    color: #4a4a4a;
+}
+
+/* Image Styles */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border: 4px solid #c7ceea;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+button {
+    background-color: #ff9aa2;
+    color: #4a4a4a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    text-shadow: 1px 1px #f0e6f6;
+}
+
+button:hover {
+    background-color: #ffdac1;
+    color: #4a4a4a;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #c7ceea;
+    color: #4a4a4a;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Press Start 2P', cursive;
+    border-top: 4px solid #b5ead7;
+}
